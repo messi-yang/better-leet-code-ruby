@@ -32,13 +32,13 @@ def full_justify(words, max_width)
     if(index+i)==words.length
       (index..(index+i-1)).each do |j|
         if index!=j
-          next_word << "_" << words[j]
+          next_word << " " << words[j]
         else
           next_word << words[j]
         end
       end
       (max_width-next_word.length).times{
-        next_word << "_"
+        next_word << " "
       }
       return output << next_word
     end
@@ -47,16 +47,16 @@ def full_justify(words, max_width)
       next_word << words[j]
       if i==1
         (max_width-next_word.length).times{
-          next_word << "_"
+          next_word << " "
         }
         break
       end
       if next_word.length<max_width && num_of_space!=0
         (space_counts/num_of_space).times{
-          next_word << "_"
+          next_word << " "
         }
         if (j-index)<(space_counts%num_of_space)
-          next_word << "_"
+          next_word << " "
         end
       end
     end
@@ -66,6 +66,16 @@ def full_justify(words, max_width)
   return output
 end
 
+#design
+=begin
+For first , I will check how many words I'm gonna push to next word of the output.
+I will add some of words to next_word till it exceeds the max_width(spaces are also reserved).
+Then to count how many spaces I should insert.
+Next step is to check it is the last word or not. If yes , just left-justify and return output.
+If it's not the last word , then insert the words , while arranging the spaces evenly to each word.
+=end
+
+#test case
 =begin
 a=["This", "is", "an", "example", "of", "text", "justification.","dddd","okdesu"]
 b=["What","must","be","shall","be."]

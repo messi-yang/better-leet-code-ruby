@@ -1,36 +1,24 @@
 # @param {Integer[]} nums
 # @return {String[]}
 def summary_ranges(nums)
-  if nums.nil?
-    return nil
-  end
-  if nums.size==0
-    return []
-  end
-  
-  output=[]
-  range_str=""
-  i=0
+  return nil if nums.nil?
+  return [] if nums.size==0
+
+  output,range_str,i=[],"",0
   nums.size.times{
     if range_str.length==0
       range_str << nums[i].to_s
     elsif nums[i]-1!=nums[i-1]
-      if range_str != nums[i-1].to_s
-        range_str << "->" << nums[i-1].to_s
-      end
+      range_str << "->#{nums[i-1].to_s}" if range_str != nums[i-1].to_s
       output << range_str
-      range_str = "" << nums[i].to_s
-       
+      range_str = "#{nums[i].to_s}"
     end
+    
     if i==nums.size-1
-      if range_str==nums[i].to_s
-        return output << range_str
-      else
-        return output << (range_str << "->" << nums[i].to_s)
-      end
+      return output << range_str if range_str==nums[i].to_s
+      return output << (range_str << "->" << nums[i].to_s)
     end
     i+=1
-  }    
 end
 
 #design

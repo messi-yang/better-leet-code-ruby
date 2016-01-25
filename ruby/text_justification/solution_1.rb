@@ -2,68 +2,54 @@
 # @param {Integer} max_width
 # @return {String[]}
 def full_justify(words, max_width)
-  if words.nil?
-    return nil
-  elsif max_width==0
-    return [""]
-  end
+  return nil if words.nil?
+  return [""] if max_width==0
+  index,output=0,[]
 
-  index=0
-  output=[]
-  
   while index<words.size do
-    i=0
-    length=0
-    while length<max_width do
-      if words[index+i].nil? || length+words[index+i].length+i-1>=max_width
-        if length+i-1>max_width
-          length-=words[index+i-1].length
-          i-=1
-        end
-        break
+    nums,length = get_nums_and_len(words,index,max_width)
+
+    num_of_space,space_counts,next_word=nums-1,max_width-length,''
+
+    if index+nums==words.length
+      (index..(index+nums-1)).each do |j|
+        next_word << "#{words[j]} "
       end
-      length+=words[index+i].length
-      i+=1
-    end
-    
-    num_of_space,space_counts=i-1,max_width-length
-    next_word=''
-    
-    if(index+i)==words.length
-      (index..(index+i-1)).each do |j|
-        if index!=j
-          next_word << " " << words[j]
-        else
-          next_word << words[j]
-        end
-      end
-      (max_width-next_word.length).times{
-        next_word << " "
-      }
-      return output << next_word
+      (max_width-next_word.length).times{ next_word << " " }
+      return output << next_word[0,max_width]
     end
 
-    (index..(index+i-1)).each do |j|
+    (index..(index+nums-1)).each do |j|
       next_word << words[j]
-      if i==1
-        (max_width-next_word.length).times{
-          next_word << " "
-        }
+      if nums==1
+        (max_width-next_word.length).times{ next_word << " " }
         break
-      end
+      end      
       if next_word.length<max_width && num_of_space!=0
-        (space_counts/num_of_space).times{
-          next_word << " "
-        }
-        if (j-index)<(space_counts%num_of_space)
-          next_word << " "
-        end
+        (space_counts/num_of_space).times{ next_word << " " }
+        next_word << " " if j-index<space_counts%num_of_space
       end
     end
     output << next_word
-    index+=i
+    index+=nums
   end
-  return output
+  output
+end
+
+def get_nums_and_len(words,index,max_width)
+  nums,length=0,0
+  while length<max_width do
+    length+=words[index+nums].length
+    nums+=1
+    if words[index+nums].nil? || length+words[index+nums].length+nums-1>=max_width
+      if length+nums-1>max_width
+        length-=words[index+nums-1].length
+        nums-=1
+      end
+      break
+    end
+  end
+  return nums,length
 end
 
 #design

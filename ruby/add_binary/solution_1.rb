@@ -2,38 +2,25 @@
 # @param {String} b
 # @return {String}
 def add_binary(a, b)
-  if a.nil?
-    return nil
-  end
-  if b.nil?
-    return nil
-  end
+  return nil if a.nil? || b.nil?
 
-  i=0
-  factor=1
-  a_val=0
-  a.length.times{
-    if a[a.length-i-1]=="1"
-      a_val+=1*factor
-    end
+  i,factor,a_val=0,1,0
+  
+  a.size.times{
+    a_val+=factor if a[a.size-i-1]=="1"
     factor*=2
     i+=1
   }
-  i=0
-  factor=1
-  b_val=0
-  b.length.times{
-    if b[b.length-i-1]=="1"
-      b_val+=1*factor
-    end
+  i,factor,b_val=0,1,0
+  
+  b.size.times{
+    b_val+=factor if b[b.size-i-1]=="1"
     factor*=2
-    i+=1 
+    i+=1
   }
 
   sum = a_val + b_val
-  if sum==0
-    return "0"
-  end
+  return "0" if sum==0
   output=""
   while sum>=1 do
     if sum%2==1
@@ -43,7 +30,7 @@ def add_binary(a, b)
     end
     sum/=2
   end
-  return output
+  output
 end
 
 #design

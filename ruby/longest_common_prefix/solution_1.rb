@@ -1,30 +1,21 @@
 # @param {String[]} strs
 # @return {String}
 def longest_common_prefix(strs)
-   if strs.nil?
-     return nil
-   end
-   if strs.size==0
-     return ""
-   end
-   if strs.size==1
-     return strs[0]
-   end
+   return nil if strs.nil?
+   return "" if strs.size==0
+   return strs[0] if strs.size==1
+
+   output,offset="",-1
    
-   output=""
-   index=0
-   while true do
-     (0..(strs.length-2)).each do |i|
-       if strs[i].nil?||strs[i+1].nil?
-         return output
-       end
-       if strs[i][index].nil?||strs[i+1][index].nil?||strs[i][index]!=strs[i+1][index]
-         return output
-       end
+   for str in strs
+     return "" if str.nil?
+   end
+   while offset+=1 do
+     (0..(strs.size-2)).each do |i|
+       return output if strs[i][offset].nil?||strs[i+1][offset].nil?||strs[i][offset]!=strs[i+1][offset]
      end
-     output << strs[0][index]
-     index+=1
-   end 
+     output << strs[0][offset]
+   end
 end
 
 #design

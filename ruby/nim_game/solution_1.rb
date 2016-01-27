@@ -1,13 +1,9 @@
 # @param {Integer} n
 # @return {Boolean}
 def can_win_nim(n)
-    if n.nil?
-      return nil
-    end
-    if n%4==0
-      return false
-    end
-    true
+  return nil if n.nil?
+  return false if n%4==0
+  true
 end
 
 #design
@@ -17,15 +13,15 @@ And furthur if I find it's the number in times of 4 , I just keep it to minus by
 =end
 
 #test case
-=begin
+#=begin
 a=1
 b=3
 c=8
 d=7
 e=nil
-puts can_win_nim(a)
-puts can_win_nim(b)
-puts can_win_nim(c)
-puts can_win_nim(d)
-puts can_win_nim(e)
-=end
+puts "input:#{a} , output:#{can_win_nim(a)}"
+puts "input:#{b} , output:#{can_win_nim(b)}"
+puts "input:#{c} , output:#{can_win_nim(c)}"
+puts "input:#{d} , output:#{can_win_nim(d)}"
+puts "input:#{e} , output:#{can_win_nim(e)}"
+#=end

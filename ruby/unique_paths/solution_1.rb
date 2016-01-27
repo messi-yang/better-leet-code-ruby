@@ -2,28 +2,19 @@
 # @param {Integer} n
 # @return {Integer}
 def unique_paths(m, n)
-    if m==0 || n==0 || (m==1&&n==1)
-      return 0
-    end
-    a=1
-    i=1
-    (m+n-2).times{
-        a*=i
-        i+=1
-    }
-    b=1
-    i=1
-    (m-1).times{
-        b*=i
-        i+=1
-    }
-    c=1
-    i=1
-    (n-1).times{
-        c*=i
-        i+=1
-    }
-    return a/b/c
+  return 0 if m==0||n==0
+  return 1 if m==1||n==1
+  a,b,c=1,1,1
+  for i in (1..m+n-2)
+    a*=i
+  end
+  for i in (1..m-1)
+    b*=i
+  end
+  for i in (1..n-1)
+    c*=i
+  end  
+  a/b/c
 end
 
 #design
